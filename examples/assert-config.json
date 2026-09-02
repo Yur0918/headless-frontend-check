@@ -1,0 +1,10 @@
+{
+  "url": "http://localhost:3000",
+  "waitMs": 1200,
+  "screenshot": "/tmp/assert-example.png",
+  "assertions": [
+    { "type": "title", "contains": "" },
+    { "type": "visible", "selector": "body" },
+    { "type": "count", "selector": "a", "min": 1 }
+  ]
+}

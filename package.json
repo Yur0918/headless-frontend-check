@@ -1,0 +1,30 @@
+{
+  "name": "headless-frontend-check",
+  "version": "1.0.0",
+  "description": "Verify local frontend changes in a real Chromium browser from the terminal: DOM assertions, interaction, download verification, screenshots, runtime-error capture.",
+  "main": "scripts/lib.js",
+  "scripts": {
+    "check": "node scripts/run-check.js",
+    "assert": "node scripts/assert.js",
+    "download": "node scripts/download.js"
+  },
+  "keywords": [
+    "puppeteer",
+    "puppeteer-core",
+    "headless",
+    "chrome",
+    "frontend",
+    "ui-test",
+    "smoke-test",
+    "dom-assertion",
+    "agent-skill"
+  ],
+  "author": "Jiahao Zhu",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "puppeteer-core": ">=23.0.0"
+  }
+}
