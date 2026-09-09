@@ -1,0 +1,11 @@
+{
+  "url": "http://localhost:8123/smoke.html",
+  "waitMs": 500,
+  "assertions": [
+    { "type": "title", "contains": "Smoke fixture" },
+    { "type": "visible", "selector": "#status" },
+    { "type": "text", "selector": "#status", "contains": "ready" },
+    { "type": "count", "selector": "#items .item", "equals": 3 },
+    { "type": "disabled", "selector": "#action", "equals": true }
+  ]
+}

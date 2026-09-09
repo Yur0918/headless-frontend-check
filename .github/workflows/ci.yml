@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Syntax check (scripts/)
+        run: |
+          for f in scripts/*.js; do
+            node --check "$f"
+          done
+
+      # Real-browser smoke on the preinstalled Chrome: exercises lib.findChrome(),
+      # launch flags, error collection, screenshots and the config-driven assertions.
+      - name: Smoke check (run-check.js)
+        run: |
+          python3 -m http.server 8123 --directory examples &
+          server_pid=$!
+          sleep 1
+          node scripts/run-check.js http://localhost:8123/smoke.html /tmp/smoke.png
+          kill $server_pid
+
+      - name: Smoke check (assert.js)
+        run: |
+          python3 -m http.server 8123 --directory examples &
+          server_pid=$!
+          sleep 1
+          node scripts/assert.js examples/smoke-config.json
+          kill $server_pid
