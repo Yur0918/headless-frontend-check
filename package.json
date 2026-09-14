@@ -4,6 +4,7 @@
   "description": "Verify local frontend changes in a real Chromium browser from the terminal: DOM assertions, interaction, download verification, screenshots, runtime-error capture.",
   "main": "scripts/lib.js",
   "scripts": {
+    "test": "node scripts/smoke.js",
     "check": "node scripts/run-check.js",
     "assert": "node scripts/assert.js",
     "download": "node scripts/download.js"
