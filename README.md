@@ -19,6 +19,13 @@ Body head:  "外规条款级入库预处理 上传制度文件 → 自动提取�
 Runtime errors: none
 ```
 
+## Output
+
+![Terminal output listing DOM assertions one by one, with expected values and pass marks](./docs/ui-check.png)
+
+*(Interface sketch — output format only; sample assertions and timings are illustrative.)*
+
+
 ## Why not just eyeball it
 
 | Failure mode | Eyeballing | This repo |

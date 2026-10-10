@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>headless-frontend-check 界面设计稿</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#eef1f5;font:14px/1.65 -apple-system,"PingFang SC",sans-serif;
+  padding:34px;color:#1a2332}
+
+.wrap{width:1080px;margin:0 auto}
+.sum2{background:#fff;border:1px solid #dfe4ea;border-radius:9px;padding:13px 18px;
+  display:flex;align-items:baseline;gap:8px;margin-bottom:12px;align-items:center}
+.sum2 b{font-size:22px;color:#1a4fa0;letter-spacing:-.02em}
+.sum2 b.z{color:#1a7f5a}.sum2 b.y2{color:#8a5a00;font-size:16px}
+.sum2 span{font-size:12px;color:#7a8595}
+.sum2 i{width:1px;height:15px;background:#e3e7ec;margin:0 7px}
+.sum2 em{margin-left:auto;font-style:normal;font-size:12px;color:#5b6675}
+
+/* 终端 */
+.term{background:#12171f;border-radius:11px;overflow:hidden;
+  box-shadow:0 14px 44px rgba(15,25,40,.28);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.th{background:#1a212c;padding:11px 16px;display:flex;align-items:center;gap:7px;
+  border-bottom:1px solid #232c38}
+.dot{width:11px;height:11px;border-radius:50%}
+.th .t{margin-left:11px;font-size:11.5px;color:#7d8899}
+.tb{background:#222c39;padding:16px 18px;font-size:12.5px;line-height:2;
+  color:#c5cfdb;white-space:pre-wrap}
+/* 视觉层级：通过=绿主色 / 分组标题=淡紫 / 说明=灰 / 断言结果=绿
+   —— 让「什么通过了」和「哪条值得看」一眼分开 */
+.g{color:#5ec98a;font-weight:600}.y{color:#e5c07b}.r{color:#e06c75}
+.d{color:#6b7686}.b{color:#7aa9e8}.p{color:#c58fe0;font-weight:600}
+/* 断言块：左侧一条色带标出这是可校验项 */
+.asrt{display:inline-block;width:3px;height:12px;background:#3d8f5f;
+  border-radius:2px;margin-right:7px;vertical-align:-1px}
+.asrt.warn{background:#d9a441}
+
+.sum{width:1080px;margin:18px 0 0;background:#fff;border:1px solid #dfe4ea;
+  border-radius:9px;padding:15px 18px;font-size:12.5px;color:#55636f;line-height:1.8}
+.sum b{color:#1a2332;display:block;margin-bottom:5px;font-size:13px}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.card{background:#fff;border:1px solid #dfe4ea;border-radius:9px;padding:15px 17px;
+  font-size:12.5px;color:#55636f;line-height:1.8}
+.card h4{font-size:13px;color:#1a2332;margin:0 0 7px;
+  display:flex;align-items:center;gap:7px}
+.tag{font-size:10.5px;background:#eef2f8;color:#5b6675;padding:2px 8px;
+  border-radius:999px;font-weight:500}
+ul{margin:6px 0 0;padding-left:17px}
+li{margin-bottom:4px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;
+  background:#eef1f6;padding:1px 5px;border-radius:4px;color:#2b3a4d}
+</style></head><body>
+<div class="wrap">
+
+<div class="sum2"><b>9</b><span>项断言通过</span><i></i><b class="z">0</b><span>失败</span>
+  <i></i><b class="y2">4.2s</b><span>用时</span>
+  <em>断言失败时报期望值与实际值，不只说「不通过」</em></div>
+<div class="term">
+  <div class="th">
+    <i class="dot" style="background:#e06c75"></i>
+    <i class="dot" style="background:#e5c07b"></i>
+    <i class="dot" style="background:#5ec98a"></i>
+    <span class="t">headless-frontend-check — run-check</span>
+  </div>
+  <div class="tb"><span class="d">$</span> node scripts/run-check.js --url http://127.0.0.1:5173/ --assert dom
+
+<span class="g">✔</span> 浏览器已启动  <span class="d">(Chrome headless, --no-sandbox)</span>
+<span class="g">✔</span> 页面加载完成  <span class="d">(200, 1.8s)</span>
+
+<span class="p">▸ DOM 断言 (7)</span>
+<i class="asrt"></i><span class="g">✔</span> <span class="d">#1</span>  #kpi-row 存在且含 7 个 .kpi
+<i class="asrt"></i><span class="g">✔</span> <span class="d">#2</span>  .chip[data-f="dir"] 数量 === 7
+<i class="asrt"></i><span class="g">✔</span> <span class="d">#3</span>  点击后 aria-pressed="true"
+<span class="y">!</span> <span class="d">#4</span>  窄屏 390px 下无横向溢出
+        <span class="d">→ scrollWidth 390 = viewport 390  ✓</span>
+<i class="asrt"></i><span class="g">✔</span> <span class="d">#5</span>  console 无 error  <span class="d">(warning 1)</span>
+<i class="asrt"></i><span class="g">✔</span> <span class="d">#6</span>  #tablesRoot 内 781 行渲染
+<i class="asrt"></i><span class="g">✔</span> <span class="d">#7</span>  点击项目后 .detail h3 更新
+
+<span class="p">▸ 交互回归 (2)</span>
+<span class="g">✔</span> 勾选 3 个项目 → #resume-text 长度 380
+<span class="g">✔</span> 搜索「授信」→ 可见行 8
+
+<span class="p">▸ 截图产物 (2)</span>
+<span class="d">  artifacts/desktop-1440.png      142 KB</span>
+<span class="d">  artifacts/mobile-390.png       98 KB</span>
+
+<span class="g">✔ 9 项断言全部通过 · 0 失败 · 用时 4.2s</span></div>
+</div>
+
+<div class="sum">
+<b>为什么要有这个工具</b>
+改前端时「看着对了」不等于能用：DOM 是否真的挂上、点击有没有响应、窄屏会不会横向溢出、
+控制台有没有报错、截图有没有截到 —— 这些在浏览器里打开看一眼是查不出来的，只有断言能给出确定答案。
+</div>
+
+<div class="g2">
+  <div class="card">
+    <h4>覆盖的场景 <span class="tag">不是截图工具</span></h4>
+    <ul>
+      <li><b>DOM 断言</b>——元素存在、数量、属性状态，逐条给期望值</li>
+      <li><b>下载校验</b>——生成的文件真的能下、字节数与格式头对得上</li>
+      <li><b>交互回归</b>——点、填、搜，走真实事件链而非直接改状态</li>
+      <li><b>控制台与请求</b>——抓 error 级日志与失败请求</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>输出原则 <span class="tag">可复现</span></h4>
+    <ul>
+      <li>断言失败时报<b>期望值与实际值</b>，不只说「不通过」</li>
+      <li>截图按视口命名，<b>可直接进 PR</b> 作为改动证据</li>
+      <li>退出码非零，可直接挂进 CI 卡住回归</li>
+      <li>无需改项目配置，<b>零侵入接入</b></li>
+    </ul>
+  </div>
+</div>
+
+</div>
+</body></html>
