@@ -3,5 +3,4 @@ node_modules/
 .DS_Store
 # Screenshots and downloaded artifacts are disposable
 screenshots/
-*.png
 *.zip
